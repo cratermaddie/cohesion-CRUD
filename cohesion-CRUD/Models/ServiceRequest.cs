@@ -7,10 +7,10 @@ namespace cohesion_CRUD.Models
 {
 	public class ServiceRequest
 	{
-		public Guid id { get; } = new Guid();
+		public Guid Id { get; private set; }
 		public String buildingCode { get; set; }
 		public String description { get; set; }
-		public CurrentStatus currentStatus { get; set; }
+		//public CurrentStatus currentStatus { get; set; }
 		public String createdBy { get; set; }
 		public DateTime createdDate { get; set; }
 		public String lastModifiedBy { get; set; }
