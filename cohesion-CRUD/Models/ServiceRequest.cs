@@ -1,6 +1,9 @@
-﻿using System;
+﻿
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace cohesion_CRUD.Models
@@ -10,7 +13,8 @@ namespace cohesion_CRUD.Models
 		public Guid Id { get; private set; }
 		public String buildingCode { get; set; }
 		public String description { get; set; }
-		//public CurrentStatus currentStatus { get; set; }
+		[JsonConverter(typeof(JsonStringEnumConverter))]
+		public CurrentStatus currentStatus { get; set; }
 		public String createdBy { get; set; }
 		public DateTime createdDate { get; set; }
 		public String lastModifiedBy { get; set; }
