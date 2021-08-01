@@ -11,23 +11,27 @@ namespace cohesion_CRUD.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ServiceRequestsController : ControllerBase
+    public class ServiceRequestController : ControllerBase
     {
         private readonly ServiceRequestContext _context;
 
-        public ServiceRequestsController(ServiceRequestContext context)
+        public ServiceRequestController(ServiceRequestContext context)
         {
             _context = context;
         }
 
-        // GET: api/ServiceRequests
+        // GET: api/ServiceRequest
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ServiceRequest>>> GetServiceRequests()
         {
+            if(_context.ServiceRequests.ToListAsync().Result.Count == 0)
+			{
+                return StatusCode(204);
+			}
             return await _context.ServiceRequests.ToListAsync();
         }
 
-        // GET: api/ServiceRequests/5
+        // GET: api/ServiceRequest/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceRequest>> GetServiceRequest(Guid id)
         {
@@ -41,7 +45,7 @@ namespace cohesion_CRUD.Controllers
             return serviceRequest;
         }
 
-        // PUT: api/ServiceRequests/5
+        // PUT: api/ServiceRequest/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutServiceRequest(Guid id, ServiceRequest serviceRequest)
@@ -72,7 +76,7 @@ namespace cohesion_CRUD.Controllers
             return NoContent();
         }
 
-        // POST: api/ServiceRequests
+        // POST: api/ServiceRequest
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<ServiceRequest>> PostServiceRequest(ServiceRequest serviceRequest)
@@ -83,7 +87,7 @@ namespace cohesion_CRUD.Controllers
             return CreatedAtAction(nameof(GetServiceRequest), new { id = serviceRequest.Id }, serviceRequest);
         }
 
-        // DELETE: api/ServiceRequests/5
+        // DELETE: api/ServiceRequest/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteServiceRequest(Guid id)
         {
